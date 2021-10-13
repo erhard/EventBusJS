@@ -1,0 +1,36 @@
+{
+  "name": "eventbusjs",
+  "version": "0.1.0",
+  "description": "eventbus for vue3 project but usable anywhere",
+  "main": "src/eventbus.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
+    "test:unit": "jest",
+    "test:unit:coverage": "jest --coverage",
+    "test:unit:watch": "jest --watch",
+    "test:unit:watchAll": "jest --watchAll"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "jest": "^27.2.4",
+    "save-dev": "0.0.1-security"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erhard/EventBusJS.git"
+  },
+  "keywords": [
+    "eventbus",
+    "vue3",
+    "vue"
+  ],
+  "author": "erhard karger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erhard/EventBusJS/issues"
+  },
+  "homepage": "https://github.com/erhard/EventBusJS#readme"
+}
