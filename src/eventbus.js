@@ -18,7 +18,7 @@ class eventBus {
 
   constructor(){
     if(eventBus.instance == null){
-      console.log("Instantiating Register");
+      console.log("Instantiating Register for Callbacks");
       this.register = []
       eventBus.instance = true
     }
@@ -49,7 +49,7 @@ $emit(target, payload){
   const retval = callback(payload)
   } else
   {
-    console.log("envent " + target + " not found");
+    console.log("event " + target + " not found");
   }
 }
 
@@ -67,9 +67,10 @@ export default EventBus
 
 
 //Some Helper functions
+//Do not export this function to keep in local env !
 
-export const getIndexOfObjectInArray=(arr,field,value) => {
-    const index = arr.findIndex(element => {
+const getIndexOfObjectInArray=(arr,field,value) => {
+       const index = arr.findIndex(element => {
        return element[field]==value;
     })
     return(index);
