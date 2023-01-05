@@ -18,7 +18,7 @@ class eventBus {
 
   constructor(){
     if(eventBus.instance == null){
-      console.log("Instantiating Register for Callbacks");
+      console.log("Instantiating Register Callbacks");
       this.register = []
       eventBus.instance = true
     }
@@ -28,7 +28,7 @@ class eventBus {
 
   $on(what, callback, receiver = "default") {
   this.register.push({what: what,callback: callback, receiver: receiver})  
-  return true
+  return this.register
 }
 
 $delRegister(){
@@ -43,14 +43,14 @@ $delRegister(){
 
 
 $emit(target, payload){
-  const index = getIndexOfObjectInArray(this.register,"what",target)
-  if(index > -1){
-  const callback = this.register[index].callback
-  const retval = callback(payload)
-  } else
-  {
-    console.log("event " + target + " not found");
+  const indexArray = getIndicesOfObjectInArray(this.register,"what",target)
+  //Callback can be asyn therefore a for loop
+  for (let i=0; i<indexArray.length; i++){
+    console.log(indexArray[i])
+    const callback = indexArray[i].callback
+    const retval = callback(payload)
   }
+
 }
 
 $getRegister(){
@@ -59,19 +59,22 @@ $getRegister(){
 }
 
 
-const EventBus = new eventBus()
-Object.freeze(EventBus)
-
-export default EventBus
 
 
 
 //Some Helper functions
 //Do not export this function to keep in local env !
 
-const getIndexOfObjectInArray=(arr,field,value) => {
-       const index = arr.findIndex(element => {
+export const getIndicesOfObjectInArray = (arr,field,value) => {
+       const resultArray = arr.filter(element => {
        return element[field]==value;
     })
-    return(index);
+    return(resultArray);
   }
+
+
+  const EventBus = new eventBus()
+  //Object.freeze(EventBus)
+  
+  export default EventBus
+  

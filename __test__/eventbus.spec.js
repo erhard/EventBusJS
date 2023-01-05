@@ -1,5 +1,7 @@
 import  EventBus from "../src/eventbus.js"
-import {getIndexOfObjectInArray} from "../src/eventbus"
+import {getIndicesOfObjectInArray} from "../src/eventbus.js"
+
+
 describe("eventbus",()=>{
   test("exist",()=>{
      //EventBus.$emit("test", console.log("Yeah"))
@@ -41,8 +43,8 @@ describe("helperFunctions", () => {
       { atr: 6, name: "f" },
       { atr: 7, name: "g" }
     ];
-    const retWert = getIndexOfObjectInArray(arr, "name", "d");
-    expect(retWert).toEqual(3);
+    const retWert = getIndicesOfObjectInArray(arr, "name", "d");
+    expect(retWert.length).toEqual(1);
   });
 
   
