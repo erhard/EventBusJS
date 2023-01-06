@@ -18,7 +18,6 @@ class eventBus {
 
   constructor(){
     if(eventBus.instance == null){
-      console.log("Instantiating Register Callbacks");
       this.register = []
       eventBus.instance = true
     }
@@ -26,10 +25,17 @@ class eventBus {
   }
 
 
-  $on(what, callback, receiver = "default") {
-  this.register.push({what: what,callback: callback, receiver: receiver})  
+  $on(what, callback, topic = "__default") {
+  this.register.push({what: what,callback: callback, topic: topic})  
   return this.register
 }
+
+$deleteTopic(topic){
+  this.register=this.register.filter(element=>{
+    return element["topic"]!=topic
+  })
+}
+
 
 $delRegister(){
    //At first delete all
@@ -42,11 +48,13 @@ $delRegister(){
   }
 
 
-$emit(target, payload){
-  const indexArray = getIndicesOfObjectInArray(this.register,"what",target)
+$emit(target, payload,namespace=null){
+  let indexArray = getIndicesOfObjectInArray(this.register,"what",target)
+  if(namespace){
+    indexArray=getIndicesOfObjectInArray(indexArray,"topic",namespace)
+  }
   //Callback can be asyn therefore a for loop
   for (let i=0; i<indexArray.length; i++){
-    console.log(indexArray[i])
     const callback = indexArray[i].callback
     const retval = callback(payload)
   }

@@ -49,6 +49,41 @@ describe("helperFunctions", () => {
 
   
 
+describe("sending to topics", () => {
+  test("send to a specific topic" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    EventBus.$on("blubber", callback, "a")
+    EventBus.$on("blubber", callback, "b")
+    EventBus.$emit("blubber", "payload", "a")
+    expect(callback.mock.calls).toHaveLength(1); 
+  });
 
 
+  test("send to all topics" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    EventBus.$on("blubber", callback,"topic-a")
+    EventBus.$on("blubber", callback, "topic-b")
+    EventBus.$emit("blubber", "payload")
+    expect(callback.mock.calls).toHaveLength(2); 
+  });
+
+
+  test("delete a topic" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    EventBus.$on("blubber", callback,"topic-a")
+    EventBus.$on("blubber", callback, "topic-b")
+    EventBus.$deleteTopic("topic-a")
+    expect(EventBus.$getRegister()).toHaveLength(1); 
+  });
+
+
+
+
+});
 });
