@@ -82,10 +82,6 @@ describe("sending to topics", () => {
   });
   
   
-  
-  
-  
-  
   test("delete a topic" , () => { 
     //EventBus is a Sinleton so clean the register explicit
     EventBus.$delRegister()
