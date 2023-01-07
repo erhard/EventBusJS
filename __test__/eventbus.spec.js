@@ -1,5 +1,6 @@
 import  EventBus from "../src/eventbus.js"
-import {getIndicesOfObjectInArray} from "../src/eventbus.js"
+import {getIndicesOfObjectInArray, __uuid} from "../src/eventbus.js"
+
 
 
 describe("eventbus",()=>{
@@ -71,7 +72,20 @@ describe("sending to topics", () => {
     expect(callback.mock.calls).toHaveLength(2); 
   });
 
-
+  test("send to an event by id" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    const id = EventBus.$on("blubber", callback,"topic-a")
+    EventBus.$emit2Id(id, "payload")
+    expect(callback).toHaveBeenCalledWith("payload"); 
+  });
+  
+  
+  
+  
+  
+  
   test("delete a topic" , () => { 
     //EventBus is a Sinleton so clean the register explicit
     EventBus.$delRegister()
@@ -82,8 +96,52 @@ describe("sending to topics", () => {
     expect(EventBus.$getRegister()).toHaveLength(1); 
   });
 
+  test("uniquify eventBusItem per topic" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    EventBus.$on("blubber", callback,"topic-a")
+    EventBus.$on("blubber", callback, "topic-a")
+    EventBus.$on("blubber", callback, "topic-a")
+    expect(EventBus.$getRegister()).toHaveLength(1); 
+  });
+
+  test("$on should return a uuid" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    const someUUID="abc_some_uuid"
+    EventBus.__uuid = jest.fn().mockReturnValue(someUUID)
+    const rr = EventBus.__uuid()
+    const retwert = EventBus.$on("blubber", callback,"topic-a")
+    expect(retwert).toBe(someUUID); 
+  });
 
 
+
+  test("$on should return an empty string, when item exists in a topic" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    const someUUID="abc_some_uuid"
+    EventBus.__uuid = jest.fn().mockReturnValue(someUUID)
+    const rr = EventBus.__uuid()
+    EventBus.$on("blubber", callback,"topic-a")
+    const retwert = EventBus.$on("blubber", callback,"topic-a")
+    expect(retwert).toBe(''); 
+  });
+
+  test("$on should find eventItem in topic" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    const rr = EventBus.__uuid()
+    const id = EventBus.$on("blubber", callback,"topic-a")
+    const finding = EventBus.$find("blubber", "topic-a")
+    expect(finding).toBe(id); 
+  });
+
+  
 
 });
 });
