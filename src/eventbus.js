@@ -91,9 +91,25 @@ $emit(target, payload,namespace=null){
 
 }
 
+$emit2Topic(topic,payload){
+  let topicArray = getIndicesOfObjectInArray(this.register,"topic",topic)
+  for (let i=0; i<topicArray.length; i++){
+    const callback = topicArray[i].callback
+    const retval = callback(payload)
+  }
+}
+
+
+
+
 $getRegister(){
   return this.register
 }
+
+
+
+
+
 
 //only if uuid is a method of a class it is mockable
 __uuid(){

@@ -38,6 +38,8 @@ https://how-to.dev/how-to-set-up-jest-for-es-module
 
 ##  changelog
 
+0.0.6  added $emit2Topic
+
 0.0.5  added id of EventBusItem
        added $emit2Id method 2 EventBus
        added uniqueness of EventName and Topic

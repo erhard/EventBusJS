@@ -137,7 +137,22 @@ describe("sending to topics", () => {
     expect(finding).toBe(id); 
   });
 
+
   
+  test("send to all eventItems in a topic" , () => { 
+    //EventBus is a Sinleton so clean the register explicit
+    EventBus.$delRegister()
+    const callback = jest.fn()
+    const id1 = EventBus.$on("blubber1", callback,"topic-a")
+    const id2 = EventBus.$on("blubber2", callback,"topic-a")
+    const id3 = EventBus.$on("blubber3", callback,"topic-a")
+    const id4 = EventBus.$on("blubber1", callback,"topic-b")
+    EventBus.$emit2Topic("topic-a", "payload")
+    expect(callback).toHaveBeenCalledTimes(3); 
+  });
+
+
+
 
 });
 });
