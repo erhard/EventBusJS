@@ -19,7 +19,9 @@ So You can use it framework independent.
 
 
 ## . Installation
-npm install eventbusjs
+
+npm install "vjseventbus"
+ 
 
 ## . Main Usage 
 import EventBus from 'vjseventbus';
@@ -37,15 +39,16 @@ For testing very helpful :
 https://how-to.dev/how-to-set-up-jest-for-es-module
 
 ##  changelog
+0.7.0  changed to globalThis as a store to get the EventBus real global for communication between modules
 
-0.0.6  added $emit2Topic
+0.6.0  added $emit2Topic
 
-0.0.5  added id of EventBusItem
+0.5.0  added id of EventBusItem
        added $emit2Id method 2 EventBus
        added uniqueness of EventName and Topic
        added delete a topic method
        added find (name,topic="__default") method
 
-0.0.4  added namespaceing via topics (little bit like kafka)
+0.4.0  added namespaceing via topics (little bit like kafka)
 
-0.0.3  eventbus can now emit to multiple listeners
+0.3.0  eventbus can now emit to multiple listeners

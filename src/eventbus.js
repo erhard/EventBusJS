@@ -18,7 +18,7 @@ class eventBus {
 
   constructor(){
     if(eventBus.instance == null){
-      this.register = []
+      globalThis.EventBus_register = []
       eventBus.instance = true
     }
     return eventBus.instance
@@ -28,26 +28,26 @@ class eventBus {
   $on(what, callback, topic = "__default") {
 
   //Check first wether eventname with topic exists
-  const resultArray = this.register.filter(element => {
+  const resultArray = globalThis.EventBus_register.filter(element => {
     return element["what"]==what && element["topic"]==topic;
   }) 
   let id = ""
   if (resultArray.length==0){
      id = this.__uuid()
-     this.register.push({what: what,callback: callback, topic: topic, id: id})  
+     globalThis.EventBus_register.push({what: what,callback: callback, topic: topic, id: id})  
   }
   return id 
 }
 
 $find(name,topic="__default"){
-  const result=this.register.filter(element=>{
+  const result=globalThis.EventBus_register.filter(element=>{
     return element["topic"]==topic && element["what"]==name
   })
   return result[0].id || "" 
 }
 
 $emit2Id(id, payload){
-  const resultArray = this.register.filter(element => {
+  const resultArray = globalThis.EventBus_register.filter(element => {
     return element["id"]==id;
  }) 
  if(resultArray.length==1){
@@ -61,7 +61,7 @@ $emit2Id(id, payload){
 
 
 $deleteTopic(topic){
-  this.register=this.register.filter(element=>{
+    globalThis.EventBus_register=globalThis.EventBus_register.filter(element=>{
     return element["topic"]!=topic
   })
 }
@@ -69,17 +69,17 @@ $deleteTopic(topic){
 
 $delRegister(){
    //At first delete all
-    let l = this.register.length 
+    let l = globalThis.EventBus_register.length 
     while (l>0){
       //Do it in a loop because later on the receiver can be consitioned
-       this.register.splice(0,1)
+      globalThis.EventBus_register.splice(0,1)
      l=l-1
    }  
   }
 
 
 $emit(target, payload,namespace=null){
-  let indexArray = getIndicesOfObjectInArray(this.register,"what",target)
+  let indexArray = getIndicesOfObjectInArray(globalThis.EventBus_register,"what",target)
   if(namespace){
     indexArray=getIndicesOfObjectInArray(indexArray,"topic",namespace)
   }
@@ -92,7 +92,7 @@ $emit(target, payload,namespace=null){
 }
 
 $emit2Topic(topic,payload){
-  let topicArray = getIndicesOfObjectInArray(this.register,"topic",topic)
+  let topicArray = getIndicesOfObjectInArray(globalThis.EventBus_register,"topic",topic)
   for (let i=0; i<topicArray.length; i++){
     const callback = topicArray[i].callback
     const retval = callback(payload)
@@ -103,7 +103,7 @@ $emit2Topic(topic,payload){
 
 
 $getRegister(){
-  return this.register
+  return globalThis.EventBus_register 
 }
 
 
