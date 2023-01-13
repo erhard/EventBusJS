@@ -24,7 +24,9 @@ class eventBus {
     return eventBus.instance
   }
 
-
+  $version(){
+    return "0.8.0"
+  }
   $on(what, callback, topic = "__default") {
 
   //Check first wether eventname with topic exists
@@ -140,6 +142,9 @@ export const getIndicesOfObjectInArray = (arr,field,value) => {
 
 
   const EventBus = new eventBus()
+  if (!globalThis.EventBus)
+     {globalThis.vjsEventBus=EventBus}
+  console.log("Enventbus installed globally !") 
   //Object.freeze(EventBus)
   
   export default EventBus

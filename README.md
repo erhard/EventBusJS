@@ -39,6 +39,10 @@ For testing very helpful :
 https://how-to.dev/how-to-set-up-jest-for-es-module
 
 ##  changelog
+
+0.8.0  added version method Eventbus can only be installed once per 
+       whole programm , so be careful.
+
 0.7.0  changed to globalThis as a store to get the EventBus real global for communication between modules
 
 0.6.0  added $emit2Topic

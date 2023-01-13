@@ -1,6 +1,6 @@
 {
   "name": "vjseventbus",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "eventbus for vue3 project but usable anywhere",
   "main": "src/eventbus.js",
   "type": "module",
