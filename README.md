@@ -40,6 +40,7 @@ https://how-to.dev/how-to-set-up-jest-for-es-module
 
 ##  changelog
 
+0.9.0  BugfixVersion
 0.8.0  added version method Eventbus can only be installed once per 
        whole programm , so be careful.
 

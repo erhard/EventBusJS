@@ -19,13 +19,15 @@ class eventBus {
   constructor(){
     if(eventBus.instance == null){
       globalThis.EventBus_register = []
+      globalThis.EventBus_data = {}
+      globalThis.EventBus_data["versionNumer"]=9
       eventBus.instance = true
     }
     return eventBus.instance
   }
 
   $version(){
-    return "0.8.0"
+    return globalThis.EventBus_data["versionNumber"]
   }
   $on(what, callback, topic = "__default") {
 
@@ -142,9 +144,8 @@ export const getIndicesOfObjectInArray = (arr,field,value) => {
 
 
   const EventBus = new eventBus()
-  if (!globalThis.EventBus)
-     {globalThis.vjsEventBus=EventBus}
-  console.log("Enventbus installed globally !") 
+  console.log ("Enventbus installed globally !") 
+
   //Object.freeze(EventBus)
   
   export default EventBus
