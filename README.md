@@ -38,7 +38,19 @@ For testing very helpful :
 
 https://how-to.dev/how-to-set-up-jest-for-es-module
 
+## Known Problems
+If you use vite and have an error global not defined. Put this in
+the startup of your app:
+
+window.global ||= window;
+
+
+Found :
+https://stackoverflow.com/questions/72114775/vite-global-is-not-defined
+
+
 ##  changelog
+0.9.1  Hint for bug with vite
 
 0.9.0  BugfixVersion
 0.8.0  added version method Eventbus can only be installed once per 
